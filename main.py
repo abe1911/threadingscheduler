@@ -6,6 +6,8 @@ import time
 precedencematrix=[[0,0,0,0,0,0,0],[1,0,0,0,0,0,0],[0,1,0,0,0,1,1],[0,0,0,0,0,0,0],[0,0,0,1,0,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,1,0]]
 tasktimings=[10,5,6,7,8,6,13]
 taskpool=[0,1,2,3,4,5,6]
+taskmutual=[6]
+affinity=[1,1,3,4,0,1,3]
 temppool=taskpool
 ntasks=7
 temppred=precedencematrix
@@ -15,6 +17,9 @@ def update_pred_matrix(t_num):
         if temppred[x][t_num] == 1:
             temppred[x][t_num]=0
 
+
+def check_affinity(t_num):
+    return affinity[t_num]
 
 def calc_dependencies(t_num):
      temp = 0
@@ -32,9 +37,13 @@ def precedence_check(t_num):
         return 0
     else:
         return 1
-
+def mutual (t_num):
+    if t_num in taskmutual:
+        return 1
+    else:
+        return 0
 def priority_function(t_num):
-        p=((1/tasktimings[t_num])*0.6+calc_dependencies(t_num)*0.2+(0.1)*0.2)*precedence_check(t_num)
+        p=((1/tasktimings[t_num])*0.6+calc_dependencies(t_num)*0.2+check_affinity(t_num)*0.1+mutual(t_num)*0.5)*precedence_check(t_num)
         return p
 def update_temppool(t_num):
     temppool.remove(t_num)
