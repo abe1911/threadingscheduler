@@ -56,7 +56,7 @@ def assign_task():
             task=temppool[x]
     update_pred_matrix(task)
     temppool.remove(task)
-    print max_priority
+    print (max_priority)
     return task
 # Define a function for the thread
 #def print_task( threadName, ttime):
@@ -75,8 +75,9 @@ def assign_task():
 try:
     for x in range(ntasks):
         p = assign_task()
-        print p
-        print "-------------"
+        print (p)
+        print ("-------------")
+   
   # thread.start_new_thread(print_task, (tasknames[1], tasktimings[1],))
   # thread.start_new_thread(print_task, (tasknames[2], tasktimings[2],))
   # thread.start_new_thread(print_task, (tasknames[3], tasktimings[3],))
